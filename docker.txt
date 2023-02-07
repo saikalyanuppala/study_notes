@@ -1,0 +1,3 @@
+docker run -p 8080:8080 image_id
+docker login
+docker push image_id(repository_name:tag)
