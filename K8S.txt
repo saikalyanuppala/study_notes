@@ -4,6 +4,9 @@ kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080
 kubectl scale deployment hello-world-rest-api --replicas=3
 kubectl set image deployment hello-world-rest-api hello-world-rest-api=in28min/hello-world-rest-api:0.0.2.RELEASE
 
+kubectl exec -it hello-world-rest-api-7f65d9587b-bb87p -- /bin/sh
+
+
 kubectl rollout history deployment hello-world-rest-api
 kubectl rollout status deployment hello-world-rest-api
 kubectl rollout undo deployment hello-world-rest-api --to-revision=1
