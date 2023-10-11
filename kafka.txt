@@ -1,0 +1,14 @@
+https://github.com/dilipsundarraj1/kafka-for-beginners/blob/master/SetUpKafka.md
+
+-----------------------------------------------------------------------------------------------------
+
+zookeeper-server-start.bat ..\..\config\zookeeper.properties
+
+Add the below properties in the server.properties
+listeners=PLAINTEXT://localhost:9092
+auto.create.topics.enable=false
+
+kafka-server-start.bat ..\..\config\server.properties
+
+
+kafka-topics.bat --create --topic test-topic --replication-factor 1 --partitions 4 --bootstarp-server localhost:9092

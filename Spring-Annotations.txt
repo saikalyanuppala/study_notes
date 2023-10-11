@@ -1,0 +1,31 @@
+Declaring Conditions
+  The most common usage would be to include or exclude the whole configuration class:
+
+	@Configuration
+	@Conditional(IsDevEnvCondition.class)
+    ----    
+    @Bean
+    @Conditional(IsDevEnvCondition.class)
+   -----
+   @ConditionalOnProperty(value="logging.enabled", havingValue = "true", matchIfMissing = true)
+   @ConditionalOnExpression("${logging.enabled:true} and '${logging.level}'.equals('DEBUG')")
+   @ConditionalOnBean(CustomLoggingConfiguration.class)
+   @ConditionalOnClass(CustomLogger.class)
+   @ConditionalOnJava(JavaVersion.EIGHT)
+   @ConditionalOnWarDeployment
+ 
+   class Java8Condition implements Condition {
+    @Override
+    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+        return JavaVersion.getJavaVersion().equals(JavaVersion.EIGHT);
+    }
+  }
+  
+  @Conditional(Java8Condition.class)
+  
+ --------------------------------------------------------------------
+ @EntityScan vs. @ComponentScan
+
+Their similarity is that they both contribute to our Spring application configuration. 
+@EntityScan should specify which packages do we want to scan for entity classes.
+@ComponentScan is a choice when specifying which packages should be scanned for Spring beans.

@@ -1,0 +1,16 @@
+login default user: ec2-user
+
+https://pkg.jenkins.io/redhat-stable/    --jenkins downloads page
+
+sudo amazon-linux-extras install epel
+sudo amazon-linux-extras install java-openjdk11
+sudo yum install jenkins
+sudo yum install git
+
+sudo service jenkins status
+sudo service jenkins start
+
+34.201.32.179:8080   
+initial jenkins password:  205eba4aa6074d4f87a20680ddbc147a(admin)
+
+tomcat configured in my local machine with port 8888

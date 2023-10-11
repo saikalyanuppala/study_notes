@@ -1,0 +1,25 @@
+1) Form based authentication
+2) Risk based authentication (RBA)  --> calculates level f risk based on given login attempts and based on the risk score.
+           --> presents authentication challenge to users like 2 factor authentication
+
+  Risk factors: 
+    1) Ip address
+	2) new device
+	3) login country
+	
+	what action to take when risk factor detected
+	   --> captcha, 2 factor authentication, block or lock account for some time period
+	   
+3) OTP based authentication --> only valid for one login or transaction session.
+
+AM --> is the centralized access manager server for authentication, autherization, security , federation, etc
+
+3 layers -- > application layer(1st) --> REST layer(2nd) --> Access Layer(3rd) [it has AM services, AM plugins(like OAUTH plugin), AM framework]
+
+CTS --> core token service
+
+--> applications which does not have security they need java agent or web agent to connect to AM. 
+    applications with SMAL, OpenID connect , OAuth they can connect directly to AM.
+	
+	
+

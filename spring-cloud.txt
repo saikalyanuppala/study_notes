@@ -1,0 +1,29 @@
+limits-service
+  --> application.propeties
+  --> spring.config.import=optional:configserver:http://localhost:8888
+  --> spring.limits.minimum=5
+  --> spring.limits.maximum=95
+  --> spring.application.name=limits-service
+  
+  --> spring.profiles.active=qa
+  --> spring.cloud.config.profile=qa
+  
+config-server
+  --> application.propeties
+  --> server.port=8888
+  --> spring.application.name=spring-cloud-config-server
+  --> spring.cloud.config.server.git.skip-ssl-validation=true
+  --> spring.cloud.config.server.git.uri=file:///User/ukalyan/git-localconfig-repo
+      --> in this location create limits-service.propeties file and add below properties
+	       --> spring.limits.minimum=50
+           --> spring.limits.maximum=950
+      --> also create properties for dev and qa like limits-service-dev.propeties limits-service-qa.propeties and provide different values
+    --> access using http://localhost:8888/limits-service/default
+	--> access using http://localhost:8888/limits-service/dev
+	--> access using http://localhost:8888/limits-service/qa
+	--> Use @EnableConfigServer
+	
+	
+--------------------------------------------------------------------------------------------------------------
+
+get port --> environment.getProperty("local.server.port");

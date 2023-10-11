@@ -1,0 +1,6 @@
+ sudo -i
+ alternatives --config java
+ 
+ S3 URL: https://aws-spring-bucket1.s3.amazonaws.com/aws-spring-demo.jar
+ wget https://aws-spring-bucket1.s3.amazonaws.com/aws-spring-demo.jar
+ 

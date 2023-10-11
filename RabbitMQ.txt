@@ -1,0 +1,4 @@
+RabbitMQ 4 exchanges --> direct, fanout,topic,headers
+
+set ERLANG_HOME environment variable --> C:\Program Files\Erlang OTP and add \bin to path variable
+enable rabbitMQ management ---> E:\Softwares\rabbitmq_server-3.11.11\sbin>rabbitmq-plugins.bat enable rabbitmq-management

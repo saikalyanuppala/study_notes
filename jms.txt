@@ -1,0 +1,42 @@
+-- > artemis create C:\jms\mybroker   --> username & password (admin & admin)
+
+You can now start the broker by executing:
+
+   "C:\jms\mybroker\bin\artemis" run
+
+Or you can setup the broker as Windows service and run it in the background:
+
+   "C:\jms\mybroker\bin\artemis-service.exe" install
+   "C:\jms\mybroker\bin\artemis-service.exe" start
+
+   To stop the windows service:
+      "C:\jms\mybroker\bin\artemis-service.exe" stop
+
+   To uninstall the windows service
+      "C:\jms\mybroker\bin\artemis-service.exe" uninstall
+
+
+
+c:\jms\mybroker\bin>artemis run
+
+------------------------------------------
+apache activeMQ and apache artemis are available at localhost:8161 --> admin & admin
+
+In Spring Boot, this error may be caused by using activemq-pool, support for which was dropped in version 2.1. It was replaced by pooled-jms.
+
+The following dependency
+
+<dependency>
+    <groupId>org.apache.activemq</groupId>
+    <artifactId>activemq-pool</artifactId>
+</dependency>
+should be replaced with:
+
+<dependency>
+    <groupId>org.messaginghub</groupId>
+    <artifactId>pooled-jms</artifactId>
+</dependency>
+
+Use these pool properties with messaginghub dependency
+#spring.activemq.pool.enabled=true
+#spring.activemq.pool.max-connections=50
