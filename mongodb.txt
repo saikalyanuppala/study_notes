@@ -1,1 +1,37 @@
+mongosh --> for interactive shell from any terminal
+show dbs;
+use mydb; -- if mydb does not exists it will create a new database
+cls; -- clear scrreen
+db; -- current db info
+show collections
+var name ="sai"
+name
+exit
+db.book.insertOne({title:"nosql",author:"viraaj",pages:700,topics:["basics","collectios"],rating:8.0})
 
+db.authors.insertOne({title:"nosql",author:"viraaj",pages:700,topics:["basics","collectios"],rating:8.0}) -- if authors collection does not exists it will create and inserts data
+
+db.book.find() -- first 20 records, for next records use "it"(iterator)
+db.book.find({author:"sai kalyan"}) -- select * from book where author='sai kalyan';
+db.book.find({author:"sai kalyan", rating:9.5}) --select * from book where author='sai kalyan' and rating=9.5;
+db.book.find({author:"sai kalyan", rating:9.5},{title:1, author:1}) --select title,author from book where author='sai kalyan' and rating=9.5; -- selects only title and author columns
+db.book.find({},{title:1, author:1}) -- select title, author from book;
+
+db.book.find().count()
+db.book.find().limit(3)
+db.book.find().limit(5).count()
+
+db.book.find().sort({title:1}) 1 ASC , -1 DESC
+
+
+opeators will use $ sign .
+db.book.find({rating : {$gt : 9}})  --$gt, lt, gte, lte
+db.book.find({rating : {$gte:8}, author : "anagha"})
+db.book.find({$or : [{rating: 8.5},{rating: 9}]}) -- {$or: [{rating: 8},{rating:9}]}
+{$or : [{rating: {$gte:8} },{pages: {$lte : 600}}]}
+
+{rating: {$in : [8,9,8.5]}} -- we also have $nin
+
+{genres: "fantacy"} --> looks inside array for one value fantacy, if it is there fantacy it will return documents.
+{genres: ["fantacy"]} --> looks for array containig only one value fantacy (exact array match)
+{"reviews.name" : "sai kalyan"} -- for nested documents search
