@@ -1,6 +1,59 @@
- sudo -i
- alternatives --config java
- 
- S3 URL: https://aws-spring-bucket1.s3.amazonaws.com/aws-spring-demo.jar
- wget https://aws-spring-bucket1.s3.amazonaws.com/aws-spring-demo.jar
- 
+AMI -- amazon machine image
+
+sudo -i
+yum repolist --list all the repositories
+yum list installed -- lists all the installed softwares
+yum grouplist --lists all the grouplist of installations
+yum install httpd --install httpd server
+
+service httpd start
+stop httpd.service
+yum remove httpd --uninstall package
+
+
+alternatives --config java
+
+s3 -- simple storage service (Object based storage) -- Scalable storge in the cloud
+100 buckets are free and 5GB free
+20000 GETS(downloads) are free, 2000 PUTS in s3 buckets
+
+created -- saikalyandevopsbucket1
+
+S3 URL: https://aws-spring-bucket1.s3.amazonaws.com/aws-spring-demo.jar
+wget https://aws-spring-bucket1.s3.amazonaws.com/aws-spring-demo.jar
+
+
+Step 1: Perform Al2023 Package Update
+sudo dnf update
+Step 2: Install MariaDB 10.05 on Amazon Linux 2023
+sudo dnf install mariadb105-server
+Step 3: Start and Enable MariaDB
+
+sudo systemctl start mariadb
+
+sudo systemctl enable mariadb
+
+Step 4: Secure MariaDB Installation
+
+sudo mysql_secure_installation
+
+Step 5: Accessing MariaDB
+
+mysql -u root -p
+
+Install Java:
+
+yum install java
+----------------------------------------------------------------
+coupon preassigned url
+wget -O couponservice-0.0.1-SNAPSHOT.jar  "https://saikalyandevopsbucket1.s3.eu-north-1.amazonaws.com/couponservice-0.0.1-SNAPSHOT.jar?response-content-disposition=inline&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPX%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCmV1LW5vcnRoLTEiSDBGAiEA%2FOmVTTwZPp4ZMqB1sD8CgMK7SXs4NHl576wIoa2yMzoCIQD68K8TUgj9IpMZqewX5%2FOg7zB%2BC0NApgzpGeHsQoCtZCrUAwiO%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDUzNjY5NzI0NjAwNiIMD3T4rdXf5m%2BQ6iz5KqgDB5hHaPmk5%2FOuyl%2BgCFsG1SUlblmLjgmytatwzmI2mdJ4Mo2%2FzzN92WXACIwIpEaEC2czV1YP34YSuPPD2Llbn9hEBKxfunhVMkMNeoyi5QbSKthmCn4xNtau42lG3jUPzfUE6x5q5I%2FYIXLzRfjK6cFxD6GfQchjKjRK%2FZ3kvuF3l9SIsGsiCiYQcoei00hER7aDJZGEseTnnkmXaPbDfpxxlTbm3%2FMBInMex%2BSAykCiZ54mwmMJf1bPHkPfPQNYFH1xFIlk7%2BBXfGQ7LNPdCm9X5dyZGcwZhBwKlWzSb7Ohaw2WaiK3xKHB%2FWdkjA2kb6Lzmm33bQxBvdo8qOkDggWP56TSQ6IDRfcP1MKdSQ7AO910Nsm57QhMo6GHKPlNiJa5xpkhLAHV7372hJ7Ov3qH5ZYIb8A78wOJwGQHtnTnZgkeydM6X5BqbsZvgh9NGonCfLvAaWa%2Fo8l6rYRCFlNn6DaqlwwU%2F2cc043gN5LeXbjqZfMLggD74ze2uQDXW5HwDGO2LJfevlMy4B4lLMiK%2BF8nkU7zlZLbBPSG4Yv82Cvcl5g5qzC2vPe5BjrjAudFscrbBFyPiIJVTD3jPdDiDkZvuG6e6JmvsB4AfjYTky7bnfwz1kfJfE6hjJAbGokLX34gw5GZS7ciM%2FmRJRzMPtKXXeJ8f%2BW0yw6V9fFfWIWK3sNgI3Rf%2BbqdB2pcn%2BuZvUpez1he%2BiZNZpYItWDo3nJZbo7Zt1sX8t7N2%2B5VblKTricebx8XzkwnWf8gLb02vYI4qZHlNhp1IkecPlQwltkB0F7XaacIevaeu3Dhv%2FHNUqLpDGGP8mD4ab2HZ0LZ%2FQ4AIjCFRprE9gJVXprHQNhRmkKGDoqhxnfatqYSUa3%2BlDTscral31ICX9ZUxt48%2BE36i%2FTeJ4Tb3hLwkzfB0RUUB%2BJE45OBQZwXHfi9ij15t26RpZ6gFiH6X9B9EqQqDKoNjfvyngXoiNqRKtecifGwAolBTl2PcYwtDzS3BvDmdaonR1iOXFZaXMRqbedFbqvYGmIww92Qq8EElhzZzrQ%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAXZ5NGCE3F6KIV7GA%2F20241120%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Date=20241120T132052Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ea8770e89e38bfd3c577250ced8997e2359125029e4adf304190dd9ca9a59c28"
+
+
+product preassigned url
+wget -O productservice-0.0.1-SNAPSHOT.jar "https://saikalyandevopsbucket1.s3.eu-north-1.amazonaws.com/productservice-0.0.1-SNAPSHOT.jar?response-content-disposition=inline&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPX%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCmV1LW5vcnRoLTEiSDBGAiEAgWwV%2Fc7MEqxKV1p3WS4HWhENZsXiiJ5BX0en7vY5nUMCIQDWENo9keieMKDFvSZstLPKWKEp2doeuUTPX3DZbMBjNyrUAwiP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDUzNjY5NzI0NjAwNiIMiU%2BDWfWaXig9dfRJKqgD2ZsVJuThWUSYgXhWGQPKSJBt2lkyu3j6MWL%2FOjZH72wnVrNTcrWJRBrFf8LAv4zMOCRqfUOIthZcrrWQltM1ZVoVO9vTU8c55vVlZapxHkuZQ80qLVRnQTuzqHqT6oUQP19EUvO8CK8OztEJLh0ddWzBDGlpw37ALcBTNVapn1FpsGdggiilJ5QukhXReYZQx3az1rp%2FVj10E1PSIdYoUKP5KqFu3jXOGhxhgOgWdIuWRHvRl89eQUc%2FWnvYP5t6qolh46BaHaYZL1h1O2pZR%2BdSiT0Lac3VLpESnp%2F6MwLDoHHjax57XaFOC3UW7Ex1UAGWPGjrnE0OAKgQa%2FNAV%2BIby%2BDx80cH9c8LC4hdQqd27lSLa3RTeb2XtM5J4tax7LiExeQsp968BwRwnZJQtXoj22vWQwR69gQbhDvg9fYj5qtQ%2BkGYu6jQsLgBDjLSJJBfO0qLrvr%2FoJDWitzWFrapmwWJWvf3cOA8azV%2BqteSsYbxl2RIThL1kulEVoL1DnweQOPcGzJwe3SfJum%2FcjTZd0Gm%2FaoQaXbZGi%2FZzAjrcvbs9fSXxTC2vPe5BjrjAl8Dpz6dB9RonWHkThKAAxbvkmeZUOTR1NjwL1L6ZPQiHKRLjNFh248E6VdsxLMDn81GxtZb1C%2F0aTkWA%2FzrPIH3i24FLvsf9gfbECHp6AbhIkdkvKn4yXvHeZJv6IZCMWVcdyFXELWjLg9u%2FQOIl%2Ba7kF6PQSgwiQiVn%2FDs36H5roxsgp03pAg7VVRQiu%2F8Sly7yN7M8npLmwqZhOZYWJ5YHCe8GImx%2BrqKH92w1azv2lsQSLL9ZKdoPcuuCMm99%2FepW8Slp2LaDtyjLJlxY7PoYaErSLTplE6mDKalef04UQMBxvqAtmZx24HRAFogWSoTr3pZjRTyigBaJEOt6HEaDbJGAu6YhFEd62vJ8BjE9z0UbqI8V5YrzVna5w%2B5%2Bi3Srwn9dKxeJIdpRn%2BZIrGOJFWWRDcUa4pdv891%2Fl08yL8UtYzJYZk8kxOb2h2uNb%2FUxSveoLsNZe1VV00gJbZNKKw%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAXZ5NGCE3PJWAOPX5%2F20241120%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Date=20241120T134140Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=0ccc4a0b5495eb2bd0c124316430e1d76e2d3a7546264a6cff7de6f0211cf784"
+
+
+------------------------------------------------
+
+cat etc/rc.local
+put the jar files under given location, so that when system reboots java applications will be restarted automatically.

@@ -1,0 +1,34 @@
+git config --global user.name "saikalyan"
+git config --global user.email "saikalyan@gmail.com"
+git config --list
+
+git log
+git log --oneline
+git diff commitid1 commitid2
+
+git restore file1 or git cheeckout file1 -- restore committed file that is not stagged
+git reset HEAD file1 -- revert stagged file that is committed ( And after this use git restore file1)
+
+git branch
+git branch dev --creates a branch dev
+git checkout dev -- checkouts dev branch
+git merge dev -- merges changes from dev to current branch
+git branch -d bugfix -- delete a branch
+
+git fetch -- check what are differences between remote repo and local repo, but do not fetch original changes.
+git pull -- brings the remote changes to local repo
+
+
+git reset --hard commitid -- these hard reset will remove previous commits
+git push -f -- forced update to remote repo, use this after hard reset
+
+git revert head
+git push
+
+git stash
+git checkout bugfix
+git stash pop
+
+install git on linux --> yum install git	
+
+
