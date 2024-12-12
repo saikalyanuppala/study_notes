@@ -29,8 +29,8 @@ kubectl delete services --all --all-namespaces
 kubectl exec -it mysql-0 --psql -U root
 ------------------------------------------------------------------------------------------------------------
 kubectl version
-kubectl create deployment hello-world-rest-api --image=in28min/hello-world-rest-api:0.0.1.RELEASE
-kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080
+kubectl create deployment hello-world-rest-api --image=in28min/hello-world-rest-api:0.0.1.RELEASE   --> deployment, replicaset, pods
+kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080   --> service
 kubectl scale deployment hello-world-rest-api --replicas=3
 kubectl set image deployment hello-world-rest-api hello-world-rest-api=in28min/hello-world-rest-api:0.0.2.RELEASE
 

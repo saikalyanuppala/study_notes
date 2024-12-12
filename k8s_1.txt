@@ -1,0 +1,54 @@
+ master nodes(manager cluster)
+ worker nodes(run your application)
+ 
+in minikube to get the service exposed url use below command
+minikube service <service-name> --url
+
+pod --> smallest deployable unit in k8s, pod is a collection of containers that can run on a host.
+
+ReplicaSet -->  ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+
+Deployment --> Deployment enables declarative updates for Pods and ReplicaSets.
+
+Service -->  Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and
+    the selector that determines which pods will answer requests sent through the proxy.
+
+------------------------------------------------------------------------------------------
+Notes: Accessing Kubernetes Application in Browser (Minikube)
+1. Accessing Application Exposed via NodePort
+Ensure Minikube is running:
+minikube status
+Start Minikube if it’s not running:
+minikube start
+
+Expose the application:
+kubectl expose deployment <deployment-name> --type=NodePort --port=<application-port>
+
+Retrieve the service URL:
+minikube service <service-name> --url
+Open directly in a browser:
+minikube service <service-name>
+
+Manually build the URL (optional):
+Get the NodePort and Minikube IP:
+kubectl get svc
+minikube ip
+Use the URL: http://<minikube-ip>:<node-port>
+
+2. Accessing Application Exposed via LoadBalancer
+Expose the application:
+kubectl expose deployment <deployment-name> --type=LoadBalancer --port=<application-port>
+
+Check service details:
+kubectl get svc
+
+Run Minikube tunnel if EXTERNAL-IP is <pending>:
+minikube tunnel
+
+Access the application using the EXTERNAL-IP and service port:
+http://<external-ip>:<port>
+
+Stop the tunnel (optional):
+Ctrl+C
+Or terminate the tunnel process:
+pkill -f "minikube tunnel"

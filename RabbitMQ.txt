@@ -2,3 +2,5 @@ RabbitMQ 4 exchanges --> direct, fanout,topic,headers
 
 set ERLANG_HOME environment variable --> C:\Program Files\Erlang OTP and add \bin to path variable
 enable rabbitMQ management ---> E:\Softwares\rabbitmq_server-3.11.11\sbin>rabbitmq-plugins.bat enable rabbitmq-management
+
+docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3-management  (default un/ps: guest/guest)
