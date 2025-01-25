@@ -58,3 +58,18 @@ wget -O productservice-0.0.1-SNAPSHOT.jar "https://saikalyandevopsbucket1.s3.eu-
 cat etc/rc.local
 put the jar files under given location, so that when system reboots java applications will be restarted automatically.
 
+---------------------------------------------------------------------------------------------------------------
+sudo yum update -y
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade -y
+sudo dnf install java-17-amazon-corretto -y
+sudo yum install jenkins -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+/var/lib/jenkins/secrets/initialAdminPassword -- d398b32377824fa7ada06dcfb015fc50 (initial jenkins aws password)
+	

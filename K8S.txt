@@ -66,6 +66,8 @@ When you are ready to start again, increase the number of nodes:
 gcloud container clusters resize --zone <name_of_zone> <name_of_your_cluster> --num-nodes=3
 gcloud container clusters resize --zone us-central1-a my-cluster-1 --num-nodes=3
 
+
+kubectl delete all --all (Delete All Deployments and Services Together)
 -----------------------------------------------------------------------------
 
 docker run -p 8080:8080 in28min/hello-world-rest-api:0.0.1.RELEASE
@@ -75,6 +77,9 @@ kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080
 kubectl scale deployment hello-world-rest-api --replicas=3
 kubectl delete pod hello-world-rest-api-58ff5dd898-62l9d
 kubectl autoscale deployment hello-world-rest-api --max=10 --cpu-percent=70
+kubectl get hpa
+kubectl top pod
+kubectl top nodes
 kubectl edit deployment hello-world-rest-api #minReadySeconds: 15
 kubectl set image deployment hello-world-rest-api hello-world-rest-api=in28min/hello-world-rest-api:0.0.2.RELEASE
  

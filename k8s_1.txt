@@ -52,3 +52,32 @@ Stop the tunnel (optional):
 Ctrl+C
 Or terminate the tunnel process:
 pkill -f "minikube tunnel"
+
+
+---------------------------------------------------------------
+k8s with docker desktop: ----->
+kubectl config get-contexts
+kubectl config get-clusters
+kubectl config use-context docker-desktop
+
+kubectl get nodes
+
+winget install Helm.Helm (installing helm in windows)
+
+https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+
+# Add kubernetes-dashboard repository
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+# Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
+
+To access Dashboard run:
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
+Dashboard will be available at: https://localhost:8443
+
+Will generate a token , use it to login to k8s local dashboard
+kubectl -n kubernetes-dashboard create token admin-user
+
+below used to create dockerhub-secret to fetch images from dockerhub. use the in deployment files under imagePullSecrets tag
+kubectl create secret docker-registry dockerhub-secret --docker-username=saikalyan08 --docker-password=bhiShma#89 --docker-email=saikalyan.uppala@gmail.com
+
