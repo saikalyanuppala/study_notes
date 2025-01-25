@@ -52,3 +52,28 @@ Stop the tunnel (optional):
 Ctrl+C
 Or terminate the tunnel process:
 pkill -f "minikube tunnel"
+
+
+---------------------------------------------------------------
+k8s with docker desktop: ----->
+kubectl config get-contexts
+kubectl config get-clusters
+kubectl config use-context docker-desktop
+
+kubectl get nodes
+
+winget install Helm.Helm (installing helm in windows)
+
+https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+
+# Add kubernetes-dashboard repository
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+# Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
+
+To access Dashboard run:
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
+Dashboard will be available at: https://localhost:8443
+
+kubectl -n kubernetes-dashboard create token admin-user
+eyJhbGciOiJSUzI1NiIsImtpZCI6Ik83QzRyRnpQSmdtc3NkSlN3RXVxZE1jaVl3Y0JyTWpDMWlTbmpkVF9UTmcifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzM3NjUyMjEwLCJpYXQiOjE3Mzc2NDg2MTAsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsInNlcnZpY2VhY2NvdW50Ijp7Im5hbWUiOiJhZG1pbi11c2VyIiwidWlkIjoiZTQ0NDliOTMtM2YyYi00NzUyLThmMzYtYTQ2ZTE2OTYzZjIzIn19LCJuYmYiOjE3Mzc2NDg2MTAsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlcm5ldGVzLWRhc2hib2FyZDphZG1pbi11c2VyIn0.mXP5IKVd8Bl9fKCD1HL0dui3-2hB5YapQRfjAbH8lr6SMsZASTIEwCyzLP89Ry8SX2AZ9PPVm2DtU1EnGcVpjDZqcjhQe7YCCywOAO8zIskKjde6E2RM9kp7uJMkX2Tk_P_6nff4PKShK0F03n9uXNbCuuNhgXg9Ko5Av1M2U3KttM1EtxwIC00Kp6T3pYo_cOI5QVSMonNewk5p0SEhaK1UfyDuETSmGuBq3oq93piE8kCQDG1srBfyLC_77a2IVCRlDSmAyUF_0ApXhdvoV5_BRgzjkM-MB0cyPGsPTgGf3GpXYcNx2GuTFxLIKGlxSV6VZqK6D9qNY1vcXqO-hA

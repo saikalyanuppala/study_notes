@@ -1,3 +1,23 @@
+use shop
+db.products.insertOne({"name":"mobile","price":200})
+db.products.find()
+db.products.find().pretty()
+
+db.products.deleteOne({"name":"sai"}) -- deletes first match finds with name sai
+db.products.deleteMany({"name":"sai"}) -- deletes all documents which matches name sai
+
+db.flightData.updateOne({name:"sai"},{$set:{age:350}}) -- updates first match finds with name sai
+db.flightData.updateMany({name:"sai"},{$set:{age:30}}) -- updates all documents which matches name sai
+
+db.products.find().toArray()
+db.products.find().forEach((data) => printjson(data))
+db.products.find({},{name:1}) -- select name from products; by default this also selects _id field, to ignore _id field and select only specified columns use below
+db.products.find({},{name:1,_id:0})
+
+
+db.students.findOne({name:"David Garcia"}).hobbies.indoor --> accessing nested documents
+db.students.find({"hobbies.indoor":"writing"})
+------------------------------------------------------------------------------------------------------------------------
 mongosh --> for interactive shell from any terminal
 show dbs;
 use mydb; -- if mydb does not exists it will create a new database

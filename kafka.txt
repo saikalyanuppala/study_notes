@@ -13,6 +13,27 @@ kafka-server-start.bat ..\..\config\server.properties
 
 kafka-topics.bat --create --topic test-topic --replication-factor 1 --partitions 4 --bootstarp-server localhost:9092
 
+----------------------------------------------------------------------------------------------------
+start kafka with kraft (Zookeeper will not available from 4.0.0 version)
+  .\bin\windows\kafka-storage.bat random-uuid (this is the generated random uuid (o_nqqu4RRwqdw8A_351Zbg))
+  .\bin\windows\kafka-storage.bat format -t o_nqqu4RRwqdw8A_351Zbg -c config/kraft/server.properties
+  .\bin\windows\kafka-server-start.bat .\config\kraft\server.properties
+
+3-kafka-servers:
+.\bin\windows\kafka-storage.bat random-uuid
+.\bin\windows\kafka-storage.bat format -t fMIK44pxRfCBJCn53-uu0A -c config/kraft/server-1.properties
+.\bin\windows\kafka-server-start.bat .\config\kraft\server-1.properties
+
+.\bin\windows\kafka-storage.bat random-uuid
+.\bin\windows\kafka-storage.bat format -t fMIK44pxRfCBJCn53-uu0A -c config/kraft/server-2.properties
+.\bin\windows\kafka-server-start.bat .\config\kraft\server-2.properties
+
+.\bin\windows\kafka-storage.bat random-uuid
+.\bin\windows\kafka-storage.bat format -t fMIK44pxRfCBJCn53-uu0A -c config/kraft/server-3.properties
+.\bin\windows\kafka-server-start.bat .\config\kraft\server-3.properties
+
+
+
 -------------------------------------------------------------------------------------------------------------------
 kafka commands
 
@@ -34,6 +55,13 @@ kafka-topics.sh --bootstrap-server localhost:9092 --topic order-events --create 
 
 # topic with replicaiton factor
 kafka-topics.sh --bootstrap-server localhost:9092 --topic order-events --create --replication-factor 3
+
+#topic with both partitions and replication-factor
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic product-created-events-topic --partitions 3 --replication-factor 2
+
+#alter topic
+kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic product-created-events-topic --config retention.ms=43200000
+
 ----------------------------------------------------
 # to produce messages
 kafka-console-producer.sh --bootstrap-server localhost:9092 --topic hello-world
