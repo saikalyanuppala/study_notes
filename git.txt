@@ -6,7 +6,7 @@ git log
 git log --oneline
 git diff commitid1 commitid2
 
-git restore file1 or git cheeckout file1 -- restore committed file that is not stagged
+git restore file1 or git checkout file1 -- restore committed file that is not stagged
 git reset HEAD file1 -- revert stagged file that is committed ( And after this use git restore file1)
 
 git branch

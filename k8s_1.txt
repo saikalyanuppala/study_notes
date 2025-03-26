@@ -18,6 +18,7 @@ Notes: Accessing Kubernetes Application in Browser (Minikube)
 1. Accessing Application Exposed via NodePort
 Ensure Minikube is running:
 minikube status
+
 Start Minikube if it’s not running:
 minikube start
 
@@ -80,5 +81,34 @@ kubectl -n kubernetes-dashboard create token admin-user
 
 below used to create dockerhub-secret to fetch images from dockerhub. use the in deployment files under imagePullSecrets tag
 kubectl create secret docker-registry dockerhub-secret --docker-username=saikalyan08 --docker-password=bhiShma#89 --docker-email=saikalyan.uppala@gmail.com
-kubectl -n kubernetes-dashboard create token admin-user
-eyJhbGciOiJSUzI1NiIsImtpZCI6Ik83QzRyRnpQSmdtc3NkSlN3RXVxZE1jaVl3Y0JyTWpDMWlTbmpkVF9UTmcifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzM3NjUyMjEwLCJpYXQiOjE3Mzc2NDg2MTAsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsInNlcnZpY2VhY2NvdW50Ijp7Im5hbWUiOiJhZG1pbi11c2VyIiwidWlkIjoiZTQ0NDliOTMtM2YyYi00NzUyLThmMzYtYTQ2ZTE2OTYzZjIzIn19LCJuYmYiOjE3Mzc2NDg2MTAsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlcm5ldGVzLWRhc2hib2FyZDphZG1pbi11c2VyIn0.mXP5IKVd8Bl9fKCD1HL0dui3-2hB5YapQRfjAbH8lr6SMsZASTIEwCyzLP89Ry8SX2AZ9PPVm2DtU1EnGcVpjDZqcjhQe7YCCywOAO8zIskKjde6E2RM9kp7uJMkX2Tk_P_6nff4PKShK0F03n9uXNbCuuNhgXg9Ko5Av1M2U3KttM1EtxwIC00Kp6T3pYo_cOI5QVSMonNewk5p0SEhaK1UfyDuETSmGuBq3oq93piE8kCQDG1srBfyLC_77a2IVCRlDSmAyUF_0ApXhdvoV5_BRgzjkM-MB0cyPGsPTgGf3GpXYcNx2GuTFxLIKGlxSV6VZqK6D9qNY1vcXqO-hA
+
+
+--------------------------------------------------------------------------------------------------
+Helm
+
+helm ls
+helm env
+helm version
+helm uninstall <name>
+helm create docker-k8-aws
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+Pod - A Kubernetes pod is a collection of one or more containers, and is the smallest unit of a Kubernetes application
+
+k8s architecture
+
+# Control plane (master node)
+## api server - core component of k8s, accepts all incoming  reqs, exposes k8s to external world.
+## etcd - key value store, cluster related infos.
+## scheduler - scheduling pods or resources on k8s, receives info from api server & acts on it
+## controller manager - ensures controllers like replica set are running
+## cloud controller manager - like terraform
+
+# Data plane (worker node)
+## kubelet - creates pod, ensures pod is always running
+## kube proxy - provides networking like Docker0, default load balancing, uses iptables in Linux machine
+## container runtime - runs container inside pod

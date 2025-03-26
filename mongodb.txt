@@ -1,5 +1,13 @@
 use shop
 db.products.insertOne({"name":"mobile","price":200})
+db.persons.insertMany([{name:'uppala',age:30,hobbies:['yoga','football']},{name:'rama',age:45,hobbies:['football','cycling']}])
+db.persons.insert() -- will not give id like above insertOne and insertMany
+
+db.hobbies.insertMany([{_id:'sports',Name:'Sports'},{_id:'cooking',name:'Cooking'},{_id:'reading',name:'Reading'}])
+db.hobbies.insertMany([{_id:'yoga',Name:'Yoga'},{_id:'cooking',name:'Cooking'},{_id:'hiking',name:'Hiking'}]) --normal behavior, insert is ordered
+db.hobbies.insertMany([{_id:'yoga',Name:'Yoga'},{_id:'cooking',name:'Cooking'},{_id:'hiking',name:'Hiking'}],{ordered:false}) --observe this 
+
+
 db.products.find()
 db.products.find().pretty()
 
@@ -17,6 +25,12 @@ db.products.find({},{name:1,_id:0})
 
 db.students.findOne({name:"David Garcia"}).hobbies.indoor --> accessing nested documents
 db.students.find({"hobbies.indoor":"writing"})
+
+db.movies.find({runtime: {$in:[30,42]}})
+db.movies.find({runtime: {$nin:[30,42]}})
+
+db.movies.find({$or: [{"rating.average": {$lt:5}},{"rating.average": {$gt:9.3}}]})
+db.movies.find({$nor: [{"rating.average": {$lt:5}},{"rating.average": {$gt:9.3}}]})
 ------------------------------------------------------------------------------------------------------------------------
 mongosh --> for interactive shell from any terminal
 show dbs;
@@ -37,6 +51,7 @@ db.book.find({author:"sai kalyan", rating:9.5}) --select * from book where autho
 db.book.find({author:"sai kalyan", rating:9.5},{title:1, author:1}) --select title,author from book where author='sai kalyan' and rating=9.5; -- selects only title and author columns
 db.book.find({},{title:1, author:1}) -- select title, author from book;
 
+db.book.countDocuments()
 db.book.find().count()
 db.book.find().limit(3)
 db.book.find().limit(5).count()
@@ -55,3 +70,176 @@ db.book.find({$or : [{rating: 8.5},{rating: 9}]}) -- {$or: [{rating: 8},{rating:
 {genres: "fantacy"} --> looks inside array for one value fantacy, if it is there fantacy it will return documents.
 {genres: ["fantacy"]} --> looks for array containig only one value fantacy (exact array match)
 {"reviews.name" : "sai kalyan"} -- for nested documents search
+
+-----------------------------------------------------------------------------------------------------------------------------------
+-- 1. Select All Columns
+SELECT * FROM employees;
+db.employees.find({});
+
+-- 2. Select Specific Columns
+SELECT emp_id, name FROM employees;
+db.employees.find({}, { "emp_id": 1, "name": 1, "_id": 0 });
+
+-- 3. Count Total Records
+SELECT COUNT(*) FROM employees;
+db.employees.countDocuments({});
+
+-- 4. Find by Primary Key
+SELECT * FROM employees WHERE emp_id = 101;
+db.employees.find({ "emp_id": 101 });
+
+-- 5. Find by Multiple Conditions (AND)
+SELECT * FROM employees WHERE name = 'John Doe' AND emp_id = 101;
+db.employees.find({ "name": "John Doe", "emp_id": 101 });
+
+-- 6. Find by Multiple Conditions (OR)
+SELECT * FROM employees WHERE name = 'John Doe' OR emp_id = 101;
+db.employees.find({ "$or": [{ "name": "John Doe" }, { "emp_id": 101 }] });
+
+-- 7. Find Records Greater Than a Value
+SELECT * FROM employees WHERE emp_id > 100;
+db.employees.find({ "emp_id": { "$gt": 100 } });
+
+-- 8. Find Records Less Than or Equal To a Value
+SELECT * FROM employees WHERE emp_id <= 105;
+db.employees.find({ "emp_id": { "$lte": 105 } });
+
+-- 9. Find by Pattern Matching
+SELECT * FROM employees WHERE name LIKE 'J%';
+db.employees.find({ "name": { "$regex": "^J" } });
+
+-- 10. Sort Records in Ascending Order
+SELECT * FROM employees ORDER BY name ASC;
+db.employees.find().sort({ "name": 1 });
+
+-- 11. Sort Records in Descending Order
+SELECT * FROM employees ORDER BY name DESC;
+db.employees.find().sort({ "name": -1 });
+
+-- 12. Limit the Number of Records
+SELECT * FROM employees LIMIT 5;
+db.employees.find().limit(5);
+
+-- 13. Skip First Few Records
+SELECT * FROM employees OFFSET 5 LIMIT 5;
+db.employees.find().skip(5).limit(5);
+
+-- 14. Get Distinct Values
+SELECT DISTINCT address.city FROM employees;
+db.employees.distinct("address.city");
+
+-- 15. Aggregate Count Grouped by a Column
+SELECT address.city, COUNT(*) FROM employees GROUP BY address.city;
+db.employees.aggregate([
+  { "$group": { "_id": "$address.city", "count": { "$sum": 1 } } }
+]);
+
+-- 16. Find by Nested Field
+SELECT * FROM employees WHERE address.city = 'New York';
+db.employees.find({ "address.city": "New York" });
+
+-- 17. Find by Multiple Values
+SELECT * FROM employees WHERE address.city IN ('New York', 'Los Angeles');
+db.employees.find({ "address.city": { "$in": ["New York", "Los Angeles"] } });
+
+-- 18. Check if Field Exists
+SELECT * FROM employees WHERE address.state IS NOT NULL;
+db.employees.find({ "address.state": { "$exists": true } });
+
+-- 19. Find Documents Where a Field is Missing
+SELECT * FROM employees WHERE address.state IS NULL;
+db.employees.find({ "address.state": { "$exists": false } });
+
+-- 20. Find Documents Where a Nested Field Matches Multiple Conditions
+SELECT * FROM employees WHERE address.city = 'New York' AND address.country = 'USA';
+db.employees.find({ "address.city": "New York", "address.country": "USA" });
+
+-- 21. Query an Array of Nested Objects
+SELECT * FROM employees WHERE EXISTS (SELECT 1 FROM projects WHERE projects.name = 'Alpha');
+db.employees.find({ "projects.name": "Alpha" });
+
+-- 22. Find Documents Matching Multiple Conditions in a Nested Array
+SELECT * FROM employees WHERE EXISTS (SELECT 1 FROM projects WHERE projects.name = 'Alpha' AND projects.status = 'Completed');
+db.employees.find({ "projects": { "$elemMatch": { "name": "Alpha", "status": "Completed" } } });
+
+-- 23. Find Documents Where an Array Contains a Specific Value
+SELECT * FROM employees WHERE 'MongoDB' IN (skills);
+db.employees.find({ "skills": "MongoDB" });
+
+-- 24. Find Documents Where an Array Contains Multiple Values
+SELECT * FROM employees WHERE skills IN ('Java', 'MongoDB');
+db.employees.find({ "skills": { "$all": ["Java", "MongoDB"] } });
+
+-- 25. Group by Nested Field and Count
+SELECT address.city, COUNT(*) FROM employees GROUP BY address.city;
+db.employees.aggregate([
+  { "$group": { "_id": "$address.city", "count": { "$sum": 1 } } }
+]);
+
+-- 26. Find Nested Objects in an Array with a Specific Condition
+SELECT * FROM employees WHERE EXISTS (SELECT 1 FROM projects WHERE projects.name = 'Beta' AND projects.status = 'In Progress');
+db.employees.find({ "projects": { "$elemMatch": { "name": "Beta", "status": "In Progress" } } });
+
+-- 27. Find Documents Where Any Nested Object Has a Specific Field Value
+SELECT * FROM employees WHERE EXISTS (SELECT 1 FROM projects WHERE projects.status = 'Completed');
+db.employees.find({ "projects.status": "Completed" });
+
+-- 28. Find Documents Where a Nested Field Matches a Pattern
+SELECT * FROM employees WHERE address.city LIKE 'New%';
+db.employees.find({ "address.city": { "$regex": "^New" } });
+
+-- 29. Find Documents Where a Nested Field is Not Equal to a Value
+SELECT * FROM employees WHERE address.country <> 'USA';
+db.employees.find({ "address.country": { "$ne": "USA" } });
+
+-- 30. Find Documents Where Any of Multiple Conditions Match
+SELECT * FROM employees WHERE address.city = 'New York' OR address.city = 'Los Angeles';
+db.employees.find({ "$or": [{ "address.city": "New York" }, { "address.city": "Los Angeles" }] });
+
+-- 31. Find Documents Where All Conditions Match
+SELECT * FROM employees WHERE address.city = 'New York' AND address.state = 'NY';
+db.employees.find({ "$and": [{ "address.city": "New York" }, { "address.state": "NY" }] });
+
+-- 32. Find Documents Where an Array Has a Specific Number of Elements
+SELECT * FROM employees WHERE ARRAY_LENGTH(skills) = 3;
+db.employees.find({ "skills": { "$size": 3 } });
+
+-- 33. Find Documents Where an Array Does Not Contain a Specific Condition
+SELECT * FROM employees WHERE NOT EXISTS (SELECT 1 FROM projects WHERE projects.status = 'Completed');
+db.employees.find({ "projects": { "$not": { "$elemMatch": { "status": "Completed" } } } });
+
+-- 34. Find Documents Using Nested Fields in Aggregation
+SELECT emp_id, name, address.city FROM employees WHERE address.city = 'New York';
+db.employees.aggregate([
+  { "$match": { "address.city": "New York" } },
+  { "$project": { "emp_id": 1, "name": 1, "address.city": 1, "_id": 0 } }
+]);
+
+-- 35. Unwind an Array and Group by a Field
+SELECT projects.name, COUNT(*) FROM employees CROSS JOIN UNNEST(projects) GROUP BY projects.name;
+db.employees.aggregate([
+  { "$unwind": "$projects" },
+  { "$group": { "_id": "$projects.name", "total": { "$sum": 1 } } }
+]);
+
+
+-------------------------------------------------------------------------------
+-- 1. Limit the Number of Records
+SELECT * FROM employees FETCH FIRST 5 ROWS ONLY;
+db.employees.find().limit(5);
+
+-- 2. Skip First Few Records (OFFSET)
+SELECT * FROM employees OFFSET 5 ROWS;
+db.employees.find().skip(5);
+
+-- 3. Skip First Few Records and Fetch a Limited Number of Rows (OFFSET + LIMIT)
+SELECT * FROM employees OFFSET 5 ROWS FETCH NEXT 10 ROWS ONLY;
+db.employees.find().skip(5).limit(10);
+
+-- 4. Order by a Column and Limit Results
+SELECT * FROM employees ORDER BY salary DESC FETCH FIRST 3 ROWS ONLY;
+db.employees.find().sort({ "salary": -1 }).limit(3);
+
+-- 5. Pagination Example (Fetching page 3 with 10 records per page)
+SELECT * FROM employees ORDER BY emp_id OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;
+db.employees.find().sort({ "emp_id": 1 }).skip(20).limit(10);

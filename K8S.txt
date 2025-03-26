@@ -32,6 +32,7 @@ kubectl version
 kubectl create deployment hello-world-rest-api --image=in28min/hello-world-rest-api:0.0.1.RELEASE   --> deployment, replicaset, pods
 kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080   --> service
 kubectl scale deployment hello-world-rest-api --replicas=3
+kubectl autoscale deployment hello-world-rest-api --max=10 --cpu-percent=70 (Will create hpa)
 kubectl set image deployment hello-world-rest-api hello-world-rest-api=in28min/hello-world-rest-api:0.0.2.RELEASE
 
 kubectl exec -it hello-world-rest-api-7f65d9587b-bb87p -- /bin/sh
@@ -77,7 +78,7 @@ kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080
 kubectl scale deployment hello-world-rest-api --replicas=3
 kubectl delete pod hello-world-rest-api-58ff5dd898-62l9d
 kubectl autoscale deployment hello-world-rest-api --max=10 --cpu-percent=70
-kubectl get hpa
+kubectl get hpa (Horizontal Pod Autoscaling)
 kubectl top pod
 kubectl top nodes
 kubectl edit deployment hello-world-rest-api #minReadySeconds: 15

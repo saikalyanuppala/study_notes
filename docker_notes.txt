@@ -1,0 +1,60 @@
+Why Docker Does Not Install Java Separately When Scaling Containers ?
+
+Understanding Scaling in Docker
+When you scale your containers from 1 to 100, Docker does not install Java separately on each new container. Instead, it reuses the same Docker image, which already has Java inside. Here's how it works step by step:
+
+1. Your Docker image includes Java
+
+Example: If you use eclipse-temurin:17 as the base image, Java is already installed inside the image.
+Every container started from this image inherits Java automatically.
+
+2. When you scale, Docker does NOT install Java separately
+
+Docker simply creates multiple instances of containers from the same image.
+Since Java is part of the image, it is already there inside each container.
+No separate installation is triggered.
+What Happens Internally When Scaling?
+
+Docker pulls the image only once to your machine (if it's not already there).
+When scaling, Docker just spins up multiple containers from the same image.
+Since the image already contains Java, each new container has Java by default.
+No separate installation scripts or downloads are triggered.
+Example: Scaling a Spring Boot Container
+
+Step 1: Build Your Docker Image
+Your Dockerfile might look like this:
+
+
+FROM eclipse-temurin:17  # Base image with Java installed  
+WORKDIR /app  
+COPY target/myapp.jar myapp.jar  
+CMD ["java", "-jar", "myapp.jar"]  
+Now, you build the image:
+
+
+docker build -t my-springboot-app .
+Step 2: Run & Scale
+Run a single instance:
+
+
+docker run -d -p 8080:8080 my-springboot-app
+Scale it up to 100 instances:
+
+docker-compose up --scale app=100
+or in Kubernetes:
+
+kubectl scale deployment my-springboot-app --replicas=100
+Step 3: What Happens Internally?
+✅ Docker does not install Java 100 times.
+✅ It just creates 100 containers from the same image.
+✅ Each container already has Java inside from the image.
+
+Why This is Efficient?
+
+No redundant downloads: The image is used as-is.
+Faster startup: Containers are created instantly without extra installation.
+Lightweight & reusable: The same Java runtime is inside each container without reinstallation.
+Final Answer
+📌 When you scale to 100 containers, Docker does not install Java separately for each one.
+📌 Instead, each container is created from the same pre-built image, which already contains Java.
+📌 This makes scaling fast and efficient. 

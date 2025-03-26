@@ -1,0 +1,84 @@
+1 Explain Plan (Check Query Execution Plan)  
+Command:  
+EXPLAIN PLAN FOR SELECT ...;  
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);  
+
+Description:  
+This command helps you analyze how Oracle executes a query. It shows whether indexes are used, if a full table scan occurs, and the type of joins used.  
+
+-----------------------------------------------------------
+
+2 Autotrace (View Execution Statistics)  
+Command:  
+SET AUTOTRACE ON;  
+SELECT * FROM employees WHERE department_id = 10;  
+
+Description:  
+This enables AUTOTRACE mode, which shows execution plans along with performance statistics like disk reads and CPU time.  
+
+-----------------------------------------------------------
+
+3️ SQL Tuning Advisor (Automatic Query Optimization Suggestions)  
+Command:  
+DECLARE  
+    task_name VARCHAR2(50);  
+BEGIN  
+    task_name := DBMS_SQLTUNE.CREATE_TUNING_TASK(  
+        sql_text    => 'SELECT * FROM employees WHERE department_id = 10',  
+        user_name   => 'HR',  
+        scope       => 'COMPREHENSIVE'  
+    );  
+    DBMS_OUTPUT.PUT_LINE('Task Name: ' || task_name);  
+END;
+/  
+
+Description:  
+This command allows Oracle to analyze your SQL and suggest improvements such as indexing, partitioning, or rewriting queries.  
+
+-----------------------------------------------------------
+
+4️ Identify Slow Queries (V$SQL View)  
+Command:  
+SELECT sql_id, elapsed_time, sql_text  
+FROM v$sql  
+ORDER BY elapsed_time DESC  
+FETCH FIRST 10 ROWS ONLY;  
+
+Description:  
+This command identifies the slowest queries by sorting them based on execution time.  
+
+-----------------------------------------------------------
+
+5️ SQL Monitor (Real-Time Query Analysis)  
+Command:  
+SELECT sql_id, sql_text   
+FROM v$sql_monitor  
+ORDER BY elapsed_time DESC;  
+
+SELECT DBMS_SQL_MONITOR.REPORT_SQL_MONITOR(sql_id => 'your_sql_id', type => 'TEXT') FROM DUAL;  
+
+Description:  
+These commands provide real-time monitoring for long-running queries, helping you understand execution performance.  
+
+-----------------------------------------------------------
+
+6️ Gather Optimizer Statistics (DBMS_STATS)  
+Command:  
+EXEC DBMS_STATS.GATHER_TABLE_STATS('HR', 'EMPLOYEES');  
+
+Description:  
+This command updates optimizer statistics to help Oracle generate better execution plans. Keeping statistics up to date is crucial for performance tuning.  
+
+---------------------------------------------------------------------------------------------------------------
+fetch second highest in oracle
+SELECT DISTINCT salary FROM emp 
+ORDER BY salary DESC FETCH FIRST 1 ROWS SKIP 1;
+
+SELECT salary FROM (SELECT salary, ROW_NUMBER() OVER (ORDER BY salary DESC) AS rnk FROM emp) 
+WHERE rnk = 2;
+
+SELECT DISTINCT salary FROM emp ORDER BY salary DESC 
+LIMIT 1 OFFSET 1; --in mysql
+
+
+SELECT * FROM employees ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 10 ROWS ONLY; -- fetch first 10 rows only

@@ -1,5 +1,18 @@
 AMI -- amazon machine image
 
+sudo yum install docker
+sudo systemctl start docker.serviec
+
+Creating AMI
+To install java, docker and postgres client
+sudo yum update
+sudo yum install java docker postgresql15 -y
+sudo systemctl start docker.service
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=password postgres
+
+
 sudo -i
 yum repolist --list all the repositories
 yum list installed -- lists all the installed softwares
@@ -72,4 +85,39 @@ sudo systemctl start jenkins
 sudo systemctl status jenkins
 
 /var/lib/jenkins/secrets/initialAdminPassword -- d398b32377824fa7ada06dcfb015fc50 (initial jenkins aws password)
-	
+
+
+
+## RDS
+
+- Connect to RDS
+```
+psql -U postgres -h [endpoint]
+```
+
+- To list the databases
+```
+SELECT datname FROM pg_database;
+```
+- To create a database
+```
+create database mydb;
+```
+- To connect to a database
+```
+\c mydb;
+```
+- To create table
+```
+CREATE TABLE customer (
+ id SERIAL PRIMARY KEY,
+ name VARCHAR(50)
+);
+```
+- To insert records
+```
+INSERT INTO customer (name)
+VALUES
+  ('Sam'),
+  ('Mike');
+```
